@@ -1,6 +1,5 @@
 
 import { AnsiUp } from 'ansi_up'
-import bodyParser from "body-parser";
 import { spawnSync } from "child_process";
 import express from "express";
 import multer from "multer";
@@ -20,7 +19,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Middleware to parse URL-encoded form data
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 // Serve static files (like HTML) from the 'public' directory
 //app.use(express.static(path.join(__dirname, 'public')));
