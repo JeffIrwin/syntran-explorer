@@ -1,0 +1,66 @@
+
+/* public/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background color */
+    color: #e0e0e0; /* Light text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #1e1e1e; /* Slightly lighter background for the form container */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ffffff; /* Light color for the header */
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #cccccc; /* Light gray color for labels */
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333333; /* Dark border */
+    border-radius: 4px;
+    background-color: #333333; /* Dark background for the textarea */
+    color: #e0e0e0; /* Light text color for textarea */
+    font-size: 16px;
+    box-sizing: border-box;
+
+}
+
+
+button {
+    background-color: #6200ea; /* Purple color for button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #3700b3; /* Darker purple on hover */
+}
+

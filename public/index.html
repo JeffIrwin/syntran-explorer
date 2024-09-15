@@ -1,0 +1,58 @@
+
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntran explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Syntran explorer</h1>
+	<h3>Help: <a href="https://github.com/JeffIrwin/syntran">documentation</a> </h3>
+        <form id="textForm">
+            <label for="text">Source:</label>
+            <textarea id="text" name="text" rows="6" required></textarea>
+            <button type="submit">Run</button>
+        </form>
+
+        <div id="responseContainer">
+            <h2>Output:</h2>
+            <p id="responseText"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('textForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            // Create a FormData object from the form
+            const formData = new FormData(this);
+    
+            // Log FormData contents for debugging
+            for (let [key, value] of formData.entries()) {
+                console.log(`FormData entry: ${key} = ${value}`);
+            }
+    
+            // Send FormData using fetch
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('responseText').innerText = data;
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>
+
