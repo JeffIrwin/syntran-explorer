@@ -1,5 +1,4 @@
 
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
 <body>
     <div class="container">
         <h1>Syntran explorer</h1>
-	<h3>Help: <a href="https://github.com/JeffIrwin/syntran">documentation</a> </h3>
+        <h3>Help: <a href="https://github.com/JeffIrwin/syntran">documentation</a> </h3>
         <form id="textForm">
             <label for="text">Source:</label>
             <textarea id="text" name="text" rows="6" required></textarea>
@@ -31,12 +30,13 @@
             // Create a FormData object from the form
             const formData = new FormData(this);
     
-            // Log FormData contents for debugging
-            for (let [key, value] of formData.entries()) {
-                console.log(`FormData entry: ${key} = ${value}`);
-            }
+            //// Debug log
+            //for (let [key, value] of formData.entries()) {
+            //    console.log(`FormData entry: ${key} = ${value}`);
+            //}
     
-            // Send FormData using fetch
+            // Send FormData using fetch and update the output with response
+            // data
             fetch('/submit', {
                 method: 'POST',
                 body: formData
@@ -50,8 +50,6 @@
             });
         });
     </script>
-
-
 
 </body>
 </html>

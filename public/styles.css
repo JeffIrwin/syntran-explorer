@@ -1,9 +1,8 @@
 
-/* public/styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212; /* Dark background color */
-    color: #e0e0e0; /* Light text color */
+    background-color: #121212;
+    color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;

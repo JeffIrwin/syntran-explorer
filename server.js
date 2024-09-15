@@ -9,8 +9,13 @@ const spawnSync = child_process.spawnSync;
 
 const app = express();
 
-//const port = 3000; // prod
-const port = 3001; // staging
+let port = 3000;
+if (process.env.NODE_ENV === "production") {
+    console.log("prod");
+} else {
+    console.log("stg");
+    port = 3001; // staging
+}
 
 // Middleware to parse URL-encoded form data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,16 +28,8 @@ let upload = multer();
 
 // Route to handle form submission
 app.post('/submit', upload.fields([]), (req, res) => {
-    console.log(req.body); // Log the request body to debug
-    const text = req.body.text; // Extract the text from the request body
-
-    //// Just echo the input text back
-    //if (text) {
-    //    res.send(`You submitted: ${text}`);
-    //} else {
-    //    res.send('No text was submitted');
-    //}
-
+    console.log(req.body);
+    const text = req.body.text;
 
     // Response text
     res_text = "";
@@ -47,7 +44,6 @@ app.post('/submit', upload.fields([]), (req, res) => {
     // instead of trying to hack return status based on number of
     // lines
     let lines = ("" + sy_cmd.stdout).split("\n");
-    //client.say(target, "" + stripAnsi(lines[0]));
     console.log("lines = ", lines);
 
     //res_text = res_text + "Result:\n\n";
@@ -55,11 +51,12 @@ app.post('/submit', upload.fields([]), (req, res) => {
     res_text = res_text + lines.join("\n");
 
     res.send(res_text);
-
 });
 
 // Start the server
-//app.listen(port, "18.191.241.59", () => {
+//
+// If you run on aws, this will be accesible via the instance's public ip.  You
+// need to add an inbound rule to the security group to allow traffic
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
