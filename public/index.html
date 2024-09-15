@@ -60,10 +60,10 @@
             });
         }
 
-	// TODO: listen on whole page, not just form?  Currently requires focus in text area
-        document.getElementById('textForm').addEventListener('keydown', function(event) {
+	// Listen on whole page for hotkey, regardless of where focus is
+        document.addEventListener('keydown', function(event) {
             if(event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-		    submitForm(this);
+		    submitForm(document.getElementById("textForm"));
 	    }
         });
 
