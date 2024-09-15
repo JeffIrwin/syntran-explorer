@@ -13,8 +13,10 @@ let port = 3000;
 if (process.env.NODE_ENV === "production") {
     console.log("prod");
 } else {
+    // staging
     console.log("stg");
-    port = 3001; // staging
+    port = 3001;
+    //document.getElementById("heading1").innerText = "Syntran explorer staging"
 }
 
 // Middleware to parse URL-encoded form data
@@ -36,6 +38,12 @@ app.post('/submit', upload.fields([]), (req, res) => {
 
     //// Echo the input
     //res_text = "Submitted text = ```" + text + "```\n\n";
+
+    // TODO: display this in a header instead.  Maybe need another req/res
+    // route for the main page
+    if (process.env.NODE_ENV !== "production") {
+        res_text += "[staging]\n";
+    }
 
     //let sy_cmd = spawnSync("syntran", ["-c", arg]);
     let sy_cmd = spawnSync("syntran", ["-q", "-c", text]);
