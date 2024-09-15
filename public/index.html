@@ -19,7 +19,9 @@
 
         <div id="responseContainer">
             <h2>Output:</h2>
-            <p id="responseText"></p>
+	    <!-- <p id="responseText"></p> -->
+	    <!-- <div id="responseText"></div> -->
+            <pre id="responseText"></pre>
         </div>
     </div>
 
@@ -50,7 +52,8 @@
             })
             .then(response => response.text())
             .then(data => {
-                document.getElementById('responseText').innerText = data;
+                //document.getElementById('responseText').innerText = data;
+                document.getElementById('responseText').innerHTML = data;
             })
             .catch(error => {
                 console.error('Fetch error:', error);

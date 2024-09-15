@@ -1,11 +1,19 @@
 
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+import express from "express";
+//import path from "path";
+import * as path from 'path';
+import { dirname } from 'path';
+import bodyParser from "body-parser";
 
-//import { spawnSync } from "child_process";
-const child_process = require('child_process');
-const spawnSync = child_process.spawnSync;
+import { spawnSync } from "child_process";
+//const child_process = require('child_process');
+//const spawnSync = child_process.spawnSync;
+
+//const AU = require('ansi_up');
+//import default from "ansi_up";
+//const ansi_up = new AU.default;
+import { AnsiUp } from 'ansi_up'
+var ansi_up = new AnsiUp();
 
 const app = express();
 
@@ -23,9 +31,12 @@ if (process.env.NODE_ENV === "production") {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files (like HTML) from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(dirname, 'public')));
+app.use(express.static('public'));
 
-let multer = require('multer');
+import multer from "multer";
+//let multer = require('multer');
 let upload = multer();
 
 // Route to handle form submission
@@ -34,7 +45,7 @@ app.post('/submit', upload.fields([]), (req, res) => {
     const text = req.body.text;
 
     // Response text
-    res_text = "";
+    let res_text = "";
 
     //// Echo the input
     //res_text = "Submitted text = ```" + text + "```\n\n";
@@ -56,7 +67,16 @@ app.post('/submit', upload.fields([]), (req, res) => {
 
     //res_text = res_text + "Result:\n\n";
     //res_text = res_text + lines;
-    res_text = res_text + lines.join("\n");
+
+    let sy_out = lines.join("\n");
+    //let sy_out = lines.join("<br>");
+
+    //let html = ansi_up.ansi_to_html(txt);
+    let html = ansi_up.ansi_to_html(sy_out);
+
+    //res_text = res_text + lines.join("\n");
+    //res_text += html;
+    res_text = html;
 
     res.send(res_text);
 });
