@@ -32,7 +32,7 @@ let ansi_up = new AnsiUp();
 
 // Route to handle form submission
 app.post('/submit', upload.fields([]), (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     let sy_in = req.body.text;
 
     // Get rid of Windows line endings for proper line numbers in error messages
@@ -62,21 +62,34 @@ app.post('/submit', upload.fields([]), (req, res) => {
     }
     //let sy_cmd = spawnSync("syntran", ["-q", "-c", sy_in]);
 
-    // `--quiet` hides the version banner and "interpretting file <name>"
-    let sy_cmd = spawnSync("syntran", ["--quiet", tmpobj.name]);
-    //let sy_cmd = spawnSync("syntran", [tmpobj.name]);
+    let sy_out = "";
+    try {
+
+	const timeout_ms = 10 * 1000;
+
+        // `--quiet` hides the version banner and "interpretting file <name>"
+        let sy_cmd = spawnSync("syntran", ["--quiet", tmpobj.name], {timeout: timeout_ms});
+        //let sy_cmd = spawnSync("syntran", [tmpobj.name]);
+
+	// We can set the timeout, but there doesn't seem to be a way to tell
+	// whether the process exceeded it or not.  It just gets killed without
+        // throwing any error
+
+        let lines = ("" + sy_cmd.stdout).split("\n");
+        console.log("lines = ", lines);
+        sy_out = lines.join("\n");
+
+    } catch (err) {
+        console.error(err);
+    }
 
     // We're done with the temp file.  This is allegedly optional
     tmpobj.removeCallback();
 
-    let lines = ("" + sy_cmd.stdout).split("\n");
-    console.log("lines = ", lines);
-
     //res_text = res_text + "Result:\n\n";
     //res_text = res_text + lines;
 
-    let sy_out = lines.join("\n");
-    //let sy_out = lines.join("<br>");
+    //sy_out = lines.join("<br>");
 
     res_text += sy_out;
 

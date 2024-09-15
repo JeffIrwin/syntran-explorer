@@ -34,6 +34,9 @@
         function submitForm(form) {
             event.preventDefault(); // prevent default behavior
 
+            // Set this to indicate possibly long-running jobs
+            document.getElementById('responseText').innerText = "Running ...";
+
             // Create a FormData object from the form
             const formData = new FormData(form);
     
@@ -50,7 +53,6 @@
             })
             .then(response => response.text())
             .then(data => {
-                //document.getElementById('responseText').innerText = data;
                 document.getElementById('responseText').innerHTML = data;
             })
             .catch(error => {
