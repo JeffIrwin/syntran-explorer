@@ -9,9 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- <div style="max-width:800px; margin:0 auto;"> -->
         <div style="display: table; margin: auto;">
-	<!-- <div style="display:flex; justify-content:center"> -->
         <h1 id="heading1">Syntran explorer</h1>
         <h3>Help: <a href="https://github.com/JeffIrwin/syntran">documentation</a> </h3>
         <form id="textForm">
@@ -39,16 +37,8 @@
     </div>
 
     <script>
-        //if (process.env.NODE_ENV === "production") {
-        ////if (env.NODE_ENV === "production") {
-        //    console.log("client prod");
-        //} else {
-        //    console.log("client stg");
-	//}
-
         fetch('/getenv', {
             method: 'POST',
-            //body: formData
         })
         .then(response => response.text())
         .then(data => {
@@ -103,7 +93,6 @@
         });
 
     </script>
-
 </body>
 </html>
 

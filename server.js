@@ -89,10 +89,7 @@ app.post('/submit', upload.fields([]), (req, res) => {
     //sy_out = lines.join("<br>");
 
     res_text += sy_out;
-
-    //let html = ansi_up.ansi_to_html(sy_out);
     let res_html = ansi_up.ansi_to_html(res_text);
-
     res.send(res_html);
 });
 
