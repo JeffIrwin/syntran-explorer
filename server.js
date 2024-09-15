@@ -1,19 +1,11 @@
 
-import express from "express";
-//import path from "path";
-import * as path from 'path';
-import { dirname } from 'path';
-import bodyParser from "body-parser";
-
-import { spawnSync } from "child_process";
-//const child_process = require('child_process');
-//const spawnSync = child_process.spawnSync;
-
-//const AU = require('ansi_up');
-//import default from "ansi_up";
-//const ansi_up = new AU.default;
 import { AnsiUp } from 'ansi_up'
-var ansi_up = new AnsiUp();
+import bodyParser from "body-parser";
+import { spawnSync } from "child_process";
+import express from "express";
+import multer from "multer";
+import fs from "node:fs";
+import tmp from "tmp";
 
 const app = express();
 
@@ -35,9 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(express.static(path.join(dirname, 'public')));
 app.use(express.static('public'));
 
-import multer from "multer";
-//let multer = require('multer');
 let upload = multer();
+let ansi_up = new AnsiUp();
 
 // Route to handle form submission
 app.post('/submit', upload.fields([]), (req, res) => {
@@ -59,12 +50,25 @@ app.post('/submit', upload.fields([]), (req, res) => {
         res_text += "[staging]\n\n";
     }
 
-    //let sy_cmd = spawnSync("syntran", ["-c", arg]);
-    let sy_cmd = spawnSync("syntran", ["-q", "-c", sy_in]);
-    
-    // syntran just always returns 0 for "-c".  Need to fix it there
-    // instead of trying to hack return status based on number of
-    // lines
+    // Write syntran input to a temp file.  Syntran can also take a program as
+    // a cmd arg with "-c", but the shell might have limits on how long it can
+    // be
+    const tmpobj = tmp.fileSync();
+    console.log('File: ', tmpobj.name);
+    try {
+        fs.writeFileSync(tmpobj.name, sy_in);
+    } catch (err) {
+        console.error(err);
+    }
+    //let sy_cmd = spawnSync("syntran", ["-q", "-c", sy_in]);
+
+    // `--quiet` hides the version banner and "interpretting file <name>"
+    let sy_cmd = spawnSync("syntran", ["--quiet", tmpobj.name]);
+    //let sy_cmd = spawnSync("syntran", [tmpobj.name]);
+
+    // We're done with the temp file.  This is allegedly optional
+    tmpobj.removeCallback();
+
     let lines = ("" + sy_cmd.stdout).split("\n");
     console.log("lines = ", lines);
 
