@@ -15,14 +15,10 @@
             <label for="text">Source:</label>
             <textarea id="text" name="text" rows="6" required>println("hello world");</textarea>
             <button type="submit">Run (Ctrl+Enter)</button>
-	    <!-- <input type="submit" style="display: none" /> -->
-	    <!-- <input type="submit" value="Submit"> -->
         </form>
 
         <div id="responseContainer">
             <h2>Output:</h2>
-	    <!-- <p id="responseText"></p> -->
-	    <!-- <div id="responseText"></div> -->
             <pre id="responseText"></pre>
         </div>
     </div>
@@ -35,17 +31,11 @@
         //    console.log("client stg");
 	//}
 
-        //input.addEventListener('keydown', (event) => {
-        document.getElementById('textForm').addEventListener('keydown', function(event) {
-            //if (event.key === 'Enter') {
-            if(event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-
-                event.preventDefault(); // prevent default behavior
-
-		// TODO: dry
+        function submitForm(form) {
+            event.preventDefault(); // prevent default behavior
 
             // Create a FormData object from the form
-            const formData = new FormData(this);
+            const formData = new FormData(form);
     
             //// Debug log
             //for (let [key, value] of formData.entries()) {
@@ -66,34 +56,16 @@
             .catch(error => {
                 console.error('Fetch error:', error);
             });
-            }
+        }
+
+        document.getElementById('textForm').addEventListener('keydown', function(event) {
+            if(event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+		    submitForm(this);
+	    }
         });
 
         document.getElementById('textForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-    
-            // Create a FormData object from the form
-            const formData = new FormData(this);
-    
-            //// Debug log
-            //for (let [key, value] of formData.entries()) {
-            //    console.log(`FormData entry: ${key} = ${value}`);
-            //}
-    
-            // Send FormData using fetch and update the output with response
-            // data
-            fetch('/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                //document.getElementById('responseText').innerText = data;
-                document.getElementById('responseText').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-            });
+	    submitForm(this);
         });
 
     </script>
