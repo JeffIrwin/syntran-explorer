@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syntran explorer</title>
+    <title id="title">Syntran explorer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -30,6 +30,22 @@
         //} else {
         //    console.log("client stg");
 	//}
+
+        fetch('/getenv', {
+            method: 'POST',
+            //body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+	    //console.log("data = ", data);
+            if (data == "staging") {
+                document.getElementById("heading1").innerText = "Syntran explorer staging";
+                document.getElementById("title").innerText = "Syntran explorer staging";
+	    }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
 
         function submitForm(form) {
             event.preventDefault(); // prevent default behavior

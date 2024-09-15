@@ -15,21 +15,25 @@ if (process.env.NODE_ENV === "production") {
     // staging
     console.log("stg");
     port = 3001;
-    //document.getElementById("heading1").innerText = "Syntran explorer staging"
 }
 
 // Middleware to parse URL-encoded form data
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files (like HTML) from the 'public' directory
+app.use(express.static('public'));
 //app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static(path.join(dirname, 'public')));
-app.use(express.static('public'));
 
 let upload = multer();
 let ansi_up = new AnsiUp();
 
-// Route to handle form submission
+// Route to send env to client
+app.post('/getenv', upload.fields([]), (req, res) => {
+    res.send(process.env.NODE_ENV);
+});
+
+// Route to handle syntran source form submission
 app.post('/submit', upload.fields([]), (req, res) => {
     //console.log(req.body);
     let sy_in = req.body.text;
@@ -42,12 +46,6 @@ app.post('/submit', upload.fields([]), (req, res) => {
 
     //// Echo the input
     //res_text = "Submitted text = ```" + sy_in + "```\n\n";
-
-    // TODO: display this in a header instead.  Maybe need another req/res
-    // route for the main page
-    if (process.env.NODE_ENV !== "production") {
-        res_text += "[staging]\n\n";
-    }
 
     // Write syntran input to a temp file.  Syntran can also take a program as
     // a cmd arg with "-c", but the shell might have limits on how long it can
