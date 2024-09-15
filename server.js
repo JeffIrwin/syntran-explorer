@@ -42,22 +42,25 @@ let upload = multer();
 // Route to handle form submission
 app.post('/submit', upload.fields([]), (req, res) => {
     console.log(req.body);
-    const text = req.body.text;
+    let sy_in = req.body.text;
+
+    // Get rid of Windows line endings for proper line numbers in error messages
+    sy_in = sy_in.replace(/\r/g, "");
 
     // Response text
     let res_text = "";
 
     //// Echo the input
-    //res_text = "Submitted text = ```" + text + "```\n\n";
+    //res_text = "Submitted text = ```" + sy_in + "```\n\n";
 
     // TODO: display this in a header instead.  Maybe need another req/res
     // route for the main page
     if (process.env.NODE_ENV !== "production") {
-        res_text += "[staging]\n";
+        res_text += "[staging]\n\n";
     }
 
     //let sy_cmd = spawnSync("syntran", ["-c", arg]);
-    let sy_cmd = spawnSync("syntran", ["-q", "-c", text]);
+    let sy_cmd = spawnSync("syntran", ["-q", "-c", sy_in]);
     
     // syntran just always returns 0 for "-c".  Need to fix it there
     // instead of trying to hack return status based on number of
@@ -71,14 +74,12 @@ app.post('/submit', upload.fields([]), (req, res) => {
     let sy_out = lines.join("\n");
     //let sy_out = lines.join("<br>");
 
-    //let html = ansi_up.ansi_to_html(txt);
-    let html = ansi_up.ansi_to_html(sy_out);
+    res_text += sy_out;
 
-    //res_text = res_text + lines.join("\n");
-    //res_text += html;
-    res_text = html;
+    //let html = ansi_up.ansi_to_html(sy_out);
+    let res_html = ansi_up.ansi_to_html(res_text);
 
-    res.send(res_text);
+    res.send(res_html);
 });
 
 // Start the server
