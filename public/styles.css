@@ -66,7 +66,13 @@ button:hover {
 
 pre {
     /* Enabable wrapping for the <pre> output block */
-    white-space: pre-line;
+
+    /* pre-line removes white space from the beginning of lines, which i don't
+     * want because it messes up error messages
+     */
+    white-space: pre-wrap;
+    /*white-space: pre-line;*/
+
     font-size: 16px;
 }
 
