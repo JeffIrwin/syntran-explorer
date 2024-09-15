@@ -9,11 +9,22 @@
 </head>
 <body>
     <div class="container">
+    	<div style="max-width:800px; margin:0 auto;"> <!-- centered div -->
         <h1 id="heading1">Syntran explorer</h1>
         <h3>Help: <a href="https://github.com/JeffIrwin/syntran">documentation</a> </h3>
         <form id="textForm">
             <label for="text">Source:</label>
-            <textarea id="text" name="text" rows="6" required>println("hello world");</textarea>
+            <textarea
+		    id="text"
+		    name="text"
+		    rows="6"
+		    cols="80"
+		    autofocus=true
+		    spellcheck=false
+		    required
+		    >println("hello world");</textarea>
+
+	    <br>
             <button type="submit">Run (Ctrl+Enter)</button>
         </form>
 
@@ -21,6 +32,8 @@
             <h2>Output:</h2>
             <pre id="responseText"></pre>
         </div>
+
+	</div>
     </div>
 
     <script>

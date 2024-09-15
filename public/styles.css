@@ -15,8 +15,12 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 20px;
-    width: 100%;
-    max-width: 600px;
+
+    width: 80%;
+    /*width: 90%;*/
+
+    /* width: 100%; */
+    /*max-width: 600px;*/
 }
 
 h1 {
@@ -33,7 +37,8 @@ label {
 }
 
 textarea {
-    width: 100%;
+    /* width: 100%; */
+    width: auto; /* cols is ignored in html unless width is auto */
     padding: 10px;
     border: 1px solid #333333; /* Dark border */
     border-radius: 4px;
@@ -41,9 +46,8 @@ textarea {
     color: #e0e0e0; /* Light text color for textarea */
     font-size: 16px;
     box-sizing: border-box;
-
+    resize: vertical;
 }
-
 
 button {
     background-color: #6200ea; /* Purple color for button */
@@ -61,5 +65,11 @@ button {
 
 button:hover {
     background-color: #3700b3; /* Darker purple on hover */
+}
+
+pre {
+    /* Enabable wrapping for the <pre> output block */
+    white-space: pre-line;
+    font-size: 16px;
 }
 
