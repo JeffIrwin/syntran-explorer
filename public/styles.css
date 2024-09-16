@@ -76,3 +76,48 @@ pre {
     font-size: 16px;
 }
 
+
+/* Style for the select element */
+select {
+    background-color: #333333; /* Dark background color */
+    color: #e0e0e0; /* Light text color */
+    border: 1px solid #555555; /* Darker border color */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+    appearance: none; /* Remove default browser styling */
+    -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+    -moz-appearance: none; /* Remove default styling in Firefox */
+    position: relative;
+}
+
+/* Custom arrow */
+select::after {
+    content: '▼'; /* Unicode character for downward arrow */
+    font-size: 12px;
+    color: #e0e0e0; /* Light color for the arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensure the arrow does not interfere with clicks */
+}
+
+/* Styling for the select box on hover and focus */
+select:hover {
+    border-color: #777777; /* Lighter border color on hover */
+}
+
+select:focus {
+outline: none;
+    border-color: #6200ea; /* Purple border color on focus */
+    box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.2); /* Light purple shadow on focus */
+}
+
+/* Additional styles for select options (limited customization) */
+select option {
+    background-color: #333333; /* Dark background for options */
+    color: #e0e0e0; /* Light text color for options */
+}
+
