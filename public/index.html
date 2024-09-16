@@ -49,17 +49,21 @@
 	function submitSampleSelect() {
 	    const sample = document.querySelector('#sample');
 	    //console.log("id = ", sample.selectedIndex);
-	    //console.log("vl = ", sample.value);
+	    console.log("vl = ", sample.value);
 
-            // Set the .textContent of this element.  This respects \r\n line breaks, while innerText does not
+            // Setting elem.textContent works *until* the user edits the
+            // textarea.  After that it can only be changed in javascript via
+            // elem.value
             elem = document.getElementById('sourceText');
 	    switch (sample.value) {
             case "hello":
-                elem.textContent = 'println("hello world");';
+                console.log("hello");
+                elem.value = 'println("hello world");';
                 break;
 
             case "for":
-                elem.textContent =
+                console.log("for");
+                elem.value =
 		    'for i in [0: 5] {\r\n' +
                     '    println("i = ", i);\r\n' +
                     '}\r\n' +
@@ -79,7 +83,7 @@
                 break;
 
             case "arrays":
-                elem.textContent =
+                elem.value =
                     'let matrix = [\n' +
                     '    0,  1,  2,  // values\n' +
                     '    3,  4,  5,\n' +
