@@ -17,6 +17,7 @@
         <select name="sample" id="sample" onChange="javascript:submitSampleSelect();">
             <option value="hello">hello world</option>
             <option value="for">for loop</option>
+            <option value="arrays">arrays</option>
         </select>
 
         <form id="textForm">
@@ -46,23 +47,20 @@
     <script>
 
 	function submitSampleSelect() {
-	    const sb = document.querySelector('#sample');
-	    //console.log("submitSampleSelect");
-	    //console.log("id = ", sb.selectedIndex);
-	    //console.log("vl = ", sb.value);
+	    const sample = document.querySelector('#sample');
+	    //console.log("id = ", sample.selectedIndex);
+	    //console.log("vl = ", sample.value);
 
             // Set the .textContent of this element.  This respects \r\n line breaks, while innerText does not
             elem = document.getElementById('sourceText');
-	    switch (sb.value) {
+	    switch (sample.value) {
             case "hello":
-                console.log("hello");
                 elem.textContent = 'println("hello world");';
                 break;
 
             case "for":
-                console.log("for");
                 elem.textContent =
-		    'for i in [0: 10] {\r\n' +
+		    'for i in [0: 5] {\r\n' +
                     '    println("i = ", i);\r\n' +
                     '}\r\n' +
                     '\r\n' +
@@ -77,6 +75,27 @@
                     '    );\r\n' +
                     '}\r\n' +
                     'println("pi = ", pi);\r\n' +
+                    '';
+                break;
+
+            case "arrays":
+                elem.textContent =
+                    'let matrix = [\n' +
+                    '    0,  1,  2,  // values\n' +
+                    '    3,  4,  5,\n' +
+                    '    6,  7,  8,\n' +
+                    '    9, 10, 11 ;\n' +
+                    '    3, 4        // size\n' +
+                    '];\n' +
+                    '\n' +
+                    'let x_slice = matrix[:,0];\n' +
+                    'println("x_slice = ", x_slice);\n' +
+                    '\n' +
+                    'let y_slice = matrix[1,:];\n' +
+                    'println("y_slice = ", y_slice);\n' +
+                    '\n' +
+                    'let mat_slice = matrix[0: 2, 1: 4];\n' +
+                    'println("mat_slice = ", mat_slice);\n' +
                     '';
                 break;
 
