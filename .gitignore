@@ -1,5 +1,7 @@
 
 /node_modules/
-/package-lock.json
 /scratch/
+
+/nohup.out
+/package-lock.json
 
