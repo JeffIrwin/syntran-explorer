@@ -2,171 +2,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="title">Syntran explorer</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title id="title">Syntran explorer</title>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="shortcut icon" type="image/png" href="/favicon.png?v=2">
 </head>
 
 <body>
-    <div class="container">
-        <div style="display: table; margin: auto;">
-        <h1 id="heading1">Syntran explorer</h1>
-        <h3>Help: <a href="https://github.com/JeffIrwin/syntran">documentation</a> </h3>
+	<div class="container">
+	<div style="display: table; margin: auto;">
+		<h1 id="heading1">Syntran explorer</h1>
+		<h3>Help: <a href="https://github.com/JeffIrwin/syntran">documentation</a> </h3>
 
-        <label for="sample" style="display: inline-block;">Choose a sample: &nbsp;</label>
-        <select name="sample" id="sample" onChange=submitSampleSelect()>
-            <option value="hello">hello world</option>
-            <option value="for">for loops</option>
-            <option value="arrays">arrays</option>
-        </select>
+		<label for="sample" style="display: inline-block;">Choose a sample: &nbsp;</label>
+		<select name="sample" id="sample" onChange=submitSampleSelect()>
+			<option value="hello">hello world</option>
+			<option value="for">for loops</option>
+			<option value="arrays">arrays</option>
+		</select>
 
-        <form id="textForm">
-            <label for="sourceText">Source:</label>
-            <textarea
-		    id="sourceText"
-		    name="text"
-		    rows="20"
-		    cols="80"
-		    autofocus=true
-		    spellcheck=false
-		    required
-		    >println("hello world");</textarea>
-	    <br>
+		<form id="textForm">
+			<label for="sourceText">Source:</label>
+			<textarea
+			id="sourceText"
+			name="text"
+			rows="20"
+			cols="80"
+			autofocus=true
+			spellcheck=false
+			required
+			>println("hello world");</textarea>
+			<br>
 
-            <button type="submit">Run (Ctrl+Enter)</button>
-        </form>
+			<button type="submit">Run (Ctrl+Enter)</button>
+		</form>
 
-        <div id="responseContainer">
-            <h2>Output:</h2>
-            <pre id="responseText"></pre>
-        </div>
+		<div id="responseContainer">
+			<h2>Output:</h2>
+			<pre id="responseText"></pre>
+		</div>
 
 	</div>
-    </div>
+	</div>
 
-    <script>
+	<script>
 
 	function submitSampleSelect() {
-	    const sample = document.querySelector('#sample');
-	    //console.log("id = ", sample.selectedIndex);
-	    console.log("vl = ", sample.value);
+		const sample = document.querySelector('#sample');
+		//console.log("id = ", sample.selectedIndex);
+		console.log("vl = ", sample.value);
 
-            // Setting elem.textContent works *until* the user edits the
-            // textarea.  After that it can only be changed in javascript via
-            // elem.value
-            elem = document.getElementById('sourceText');
-	    switch (sample.value) {
-            case "hello":
-                console.log("hello");
-                elem.value = 'println("hello world");';
-                break;
+		// Setting elem.textContent works *until* the user edits the
+		// textarea.  After that it can only be changed in javascript via
+		// elem.value
+		elem = document.getElementById('sourceText');
+		switch (sample.value) {
+			case "hello":
+				console.log("hello");
+				elem.value = 'println("hello world");';
+				break;
 
-            case "for":
-                console.log("for");
-                elem.value =
-		    'for i in [0: 5] {\r\n' +
-                    '    println("i = ", i);\r\n' +
-                    '}\r\n' +
-                    '\r\n' +
-                    '// Calculate π\r\n' +
-                    'let pi = 0.0;\r\n' +
-		    'for k in [0: 10] {\r\n' +
-                    '    pi = pi + 1 / (16.0 ** k) * (\r\n' +
-                    '        4.0 / (8*k + 1) -\r\n' +
-                    '        2.0 / (8*k + 4) -\r\n' +
-                    '        1.0 / (8*k + 5) -\r\n' +
-                    '        1.0 / (8*k + 6)\r\n' +
-                    '    );\r\n' +
-                    '}\r\n' +
-                    'println("pi = ", pi);\r\n' +
-                    '';
-                break;
+			case "for":
+				console.log("for");
+				elem.value =
+					'for i in [0: 5] {\r\n' +
+					'    println("i = ", i);\r\n' +
+					'}\r\n' +
+					'\r\n' +
+					'// Calculate π\r\n' +
+					'let pi = 0.0;\r\n' +
+					'for k in [0: 10] {\r\n' +
+					'    pi = pi + 1 / (16.0 ** k) * (\r\n' +
+					'        4.0 / (8*k + 1) -\r\n' +
+					'        2.0 / (8*k + 4) -\r\n' +
+					'        1.0 / (8*k + 5) -\r\n' +
+					'        1.0 / (8*k + 6)\r\n' +
+					'    );\r\n' +
+					'}\r\n' +
+					'println("pi = ", pi);\r\n' +
+					'';
+				break;
 
-            case "arrays":
-                elem.value =
-                    'let matrix = [\n' +
-                    '    0,  1,  2,  // values\n' +
-                    '    3,  4,  5,\n' +
-                    '    6,  7,  8,\n' +
-                    '    9, 10, 11 ;\n' +
-                    '    3, 4        // size\n' +
-                    '];\n' +
-                    '\n' +
-                    'let x_slice = matrix[:,0];\n' +
-                    'println("x_slice = ", x_slice);\n' +
-                    '\n' +
-                    'let y_slice = matrix[1,:];\n' +
-                    'println("y_slice = ", y_slice);\n' +
-                    '\n' +
-                    'let mat_slice = matrix[0: 2, 1: 4];\n' +
-                    'println("mat_slice = ", mat_slice);\n' +
-                    '';
-                break;
+			case "arrays":
+				elem.value =
+					'let matrix = [\n' +
+					'    0,  1,  2,  // values\n' +
+					'    3,  4,  5,\n' +
+					'    6,  7,  8,\n' +
+					'    9, 10, 11 ;\n' +
+					'    3, 4        // size\n' +
+					'];\n' +
+					'\n' +
+					'let x_slice = matrix[:,0];\n' +
+					'println("x_slice = ", x_slice);\n' +
+					'\n' +
+					'let y_slice = matrix[1,:];\n' +
+					'println("y_slice = ", y_slice);\n' +
+					'\n' +
+					'let mat_slice = matrix[0: 2, 1: 4];\n' +
+					'println("mat_slice = ", mat_slice);\n' +
+					'';
+				break;
 
-            default:
-                console.log("default");
-                break;
-            }
-	}
+			default:
+				console.log("default");
+				break;
+			}
+		}
 
-        fetch('/getenv', {
-            method: 'POST',
-        })
-        .then(response => response.text())
-        .then(data => {
-	    //console.log("data = ", data);
-            if (data == "staging") {
-                document.getElementById("heading1").innerText = "Syntran explorer staging";
-                document.getElementById("title").innerText = "Syntran explorer staging";
-	    }
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-        });
+		fetch('/getenv', {
+			method: 'POST',
+		})
+		.then(response => response.text())
+		.then(data => {
+			//console.log("data = ", data);
+			if (data == "staging") {
+				document.getElementById("heading1").innerText = "Syntran explorer staging";
+				document.getElementById("title").innerText = "Syntran explorer staging";
+		}
+		})
+		.catch(error => {
+			console.error('Fetch error:', error);
+		});
 
-        function submitSourceForm(form) {
-            event.preventDefault(); // prevent default behavior
+		function submitSourceForm(form) {
+			event.preventDefault(); // prevent default behavior
 
-            // Set this to indicate possibly long-running jobs
-            document.getElementById('responseText').innerText = "Running ...";
+			// Set this to indicate possibly long-running jobs
+			document.getElementById('responseText').innerText = "Running ...";
 
-            // Create a FormData object from the form
-            const formData = new FormData(form);
-    
-            //// Debug log
-            //for (let [key, value] of formData.entries()) {
-            //    console.log(`FormData entry: ${key} = ${value}`);
-            //}
-    
-            // Send FormData using fetch and update the output with response
-            // data
-            fetch('/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('responseText').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-            });
-        }
+			// Create a FormData object from the form
+			const formData = new FormData(form);
+	
+			//// Debug log
+			//for (let [key, value] of formData.entries()) {
+			//    console.log(`FormData entry: ${key} = ${value}`);
+			//}
+	
+			// Send FormData using fetch and update the output with response
+			// data
+			fetch('/submit', {
+				method: 'POST',
+				body: formData
+			})
+			.then(response => response.text())
+			.then(data => {
+				document.getElementById('responseText').innerHTML = data;
+			})
+			.catch(error => {
+				console.error('Fetch error:', error);
+			});
+		}
 
-	// Listen on whole page for hotkey, regardless of where focus is
-        document.addEventListener('keydown', function(event) {
-            if(event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-		    submitSourceForm(document.getElementById("textForm"));
-	    }
-        });
+		// Listen on whole page for hotkey, regardless of where focus is
+		document.addEventListener('keydown', function(event) {
+			if(event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+				submitSourceForm(document.getElementById("textForm"));
+			}
+		});
 
-        document.getElementById('textForm').addEventListener('submit', function(event) {
-	    submitSourceForm(this);
-        });
+		document.getElementById('textForm').addEventListener('submit', function(event) {
+			submitSourceForm(this);
+		});
 
-    </script>
+	</script>
 </body>
 </html>
 
