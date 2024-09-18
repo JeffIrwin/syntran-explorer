@@ -46,7 +46,9 @@ textarea {
 	color: #e0e0e0; /* Light text color for textarea */
 	font-size: 16px;
 	box-sizing: border-box;
-	resize: vertical;
+	/*resize: vertical;*/
+	resize: none;
+	/*field-sizing: normal;*/
 }
 
 button {
@@ -76,7 +78,6 @@ pre {
 	font-size: 16px;
 }
 
-
 /* Style for the select element */
 select {
 	background-color: #333333; /* Dark background color */
@@ -84,7 +85,7 @@ select {
 	border: 1px solid #555555; /* Darker border color */
 	border-radius: 4px; /* Rounded corners */
 	padding: 10px;
-	width: 200px;
+	/*width: 200px;*/
 	font-size: 16px;
 	position: relative;
 }
@@ -105,4 +106,48 @@ select option {
 	background-color: #333333; /* Dark background for options */
 	color: #e0e0e0; /* Light text color for options */
 }
+
+/* Ref: https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/ */
+.grow-wrap {
+  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+
+  display: grid;
+}
+.grow-wrap::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) " ";
+
+  /* This is how textarea text behaves */
+  white-space: pre-wrap;
+
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+
+}
+.grow-wrap > textarea {
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+
+  /* Firefox shows scrollbar on growth, you can hide like this. */
+  overflow: hidden;
+
+}
+.grow-wrap > textarea,
+.grow-wrap::after {
+  /* Identical styling required!! */
+  border: 1px solid black;
+  padding: 0.5rem;
+  font: inherit;
+
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+/*body {
+  margin: 2rem;
+  font: 1rem/1.4 system-ui, sans-serif;
+}
+label {
+  display: block;
+}*/
 
