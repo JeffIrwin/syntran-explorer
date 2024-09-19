@@ -66,57 +66,21 @@ function submitSampleSelect() {
 	elem = document.getElementById('sourceText');
 	switch (sample.value) {
 		case "hello":
-			console.log("hello");
-			elem.value = 'println("hello world");';
+			elem.value = HELLO_SRC;
 			elem.rows = 4;
 			break;
 
 		case "for":
-			console.log("for");
-			elem.value =
-				'for i in [0: 5] {\n' +
-				'    println("i = ", i);\n' +
-				'}\n' +
-				'\n' +
-				'// Calculate π\n' +
-				'let pi = 0.0;\n' +
-				'for k in [0: 10] {\n' +
-				'    pi = pi + 1 / (16.0 ** k) * (\n' +
-				'        4.0 / (8*k + 1) -\n' +
-				'        2.0 / (8*k + 4) -\n' +
-				'        1.0 / (8*k + 5) -\n' +
-				'        1.0 / (8*k + 6)\n' +
-				'    );\n' +
-				'}\n' +
-				'println("pi = ", pi);\n' +
-				'';
+			elem.value = FOR_SRC;
 			elem.rows = countLines(elem.value);
 			break;
 
 		case "arrays":
-			elem.value =
-				'let matrix = [\n' +
-				'    0,  1,  2,  // values\n' +
-				'    3,  4,  5,\n' +
-				'    6,  7,  8,\n' +
-				'    9, 10, 11 ;\n' +
-				'    3, 4        // size\n' +
-				'];\n' +
-				'\n' +
-				'let x_slice = matrix[:,0];\n' +
-				'println("x_slice = ", x_slice);\n' +
-				'\n' +
-				'let y_slice = matrix[1,:];\n' +
-				'println("y_slice = ", y_slice);\n' +
-				'\n' +
-				'let mat_slice = matrix[0: 2, 1: 4];\n' +
-				'println("mat_slice = ", mat_slice);\n' +
-				'';
+			elem.value = ARRAYS_SRC;
 			elem.rows = countLines(elem.value);
 			break;
 
 		default:
-			console.log("default");
 			break;
 		}
 
@@ -186,6 +150,46 @@ growers.forEach((grower) => {
     grower.dataset.replicatedValue = textarea.value;
   });
 });
+
+const HELLO_SRC =
+'println("hello world");';
+
+const FOR_SRC =
+'for i in [0: 5] {\n' +
+'    println("i = ", i);\n' +
+'}\n' +
+'\n' +
+'// Calculate π\n' +
+'let pi = 0.0;\n' +
+'for k in [0: 10] {\n' +
+'    pi += 1 / (16.0 ** k) * (\n' +
+'        4.0 / (8*k + 1) -\n' +
+'        2.0 / (8*k + 4) -\n' +
+'        1.0 / (8*k + 5) -\n' +
+'        1.0 / (8*k + 6)\n' +
+'    );\n' +
+'}\n' +
+'println("pi = ", pi);\n' +
+'';
+
+const ARRAYS_SRC =
+'let matrix = [\n' +
+'    0,  1,  2,  // values\n' +
+'    3,  4,  5,\n' +
+'    6,  7,  8,\n' +
+'    9, 10, 11 ;\n' +
+'    3, 4        // size\n' +
+'];\n' +
+'\n' +
+'let x_slice = matrix[:,0];\n' +
+'println("x_slice = ", x_slice);\n' +
+'\n' +
+'let y_slice = matrix[1,:];\n' +
+'println("y_slice = ", y_slice);\n' +
+'\n' +
+'let mat_slice = matrix[0: 2, 1: 4];\n' +
+'println("mat_slice = ", mat_slice);\n' +
+'';
 
 </script>
 </body>
