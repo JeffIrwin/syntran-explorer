@@ -21,6 +21,7 @@
 			<option value="hello">hello world</option>
 			<option value="for">for loops</option>
 			<option value="arrays">arrays</option>
+			<option value="quine">quine</option>
 		</select>
 
 		<form id="textForm">
@@ -33,8 +34,8 @@
 				cols="20"
 				autofocus=true
 				spellcheck=false
-				required
-				>println("hello world");</textarea>
+				required>
+			</textarea>
 			</div></pre>
 			<button type="submit">Run (Ctrl+Enter)</button>
 		</form>
@@ -71,6 +72,9 @@ function submitSampleSelect() {
 		break;
 	case "arrays":
 		elem.value = ARRAYS_SRC;
+		break;
+	case "quine":
+		elem.value = QUINE_SRC;
 		break;
 	default:
 		break;
@@ -153,7 +157,8 @@ growers.forEach((grower) => {
 });
 
 const HELLO_SRC =
-`println("hello world");`;
+`println("hello world");
+`;
 
 const FOR_SRC =
 `for i in [0: 5] {
@@ -195,6 +200,36 @@ matrix[1,:] += 100;
 y_slice = matrix[1,:];
 println("y_slice = ", y_slice);
 `;
+
+const QUINE_SRC =
+`fn quine(s: str) {
+	let lparen    = char(40);
+	let rparen    = char(41);
+	let quote     = char(34);
+	let semicolon = char(59);
+	println(
+		s + lparen + quote +
+		s + quote + rparen + semicolon
+	);
+	return;
+}
+quine("
+fn quine(s: str) {
+	let lparen    = char(40);
+	let rparen    = char(41);
+	let quote     = char(34);
+	let semicolon = char(59);
+	println(
+		s + lparen + quote +
+		s + quote + rparen + semicolon
+	);
+	return;
+}
+quine");
+`;
+
+// Initialize source text contents
+submitSampleSelect();
 
 </script>
 </body>
