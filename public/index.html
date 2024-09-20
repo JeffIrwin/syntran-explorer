@@ -21,6 +21,7 @@
 			<option value="hello">hello world</option>
 			<option value="for">for loops</option>
 			<option value="arrays">arrays</option>
+			<option value="struct">structs</option>
 			<option value="quine">quine</option>
 		</select>
 
@@ -50,14 +51,10 @@
 
 <script>
 
-function countLines(str) {
-	return str.split(/\r\n|\r|\n/).length;
-}
-
 function submitSampleSelect() {
 	const sample = document.querySelector('#sample');
 	//console.log("id = ", sample.selectedIndex);
-	console.log("vl = ", sample.value);
+	//console.log("vl = ", sample.value);
 
 	// Setting elem.textContent works *until* the user edits the
 	// textarea.  After that it can only be changed in javascript via
@@ -76,21 +73,13 @@ function submitSampleSelect() {
 	case "quine":
 		elem.value = QUINE_SRC;
 		break;
+	case "struct":
+		elem.value = STRUCT_SRC;
+		break;
 	default:
 		break;
 	}
-	//grower.dataset.replicatedValue = textarea.value;
-	//elem.dataset.replicatedValue = elem.value;
 	document.getElementById("sourceTextWrap").dataset.replicatedValue = elem.value;
-
-	//const growers = document.querySelectorAll(".grow-wrap");
-	//growers.forEach((grower) => {
-	//  const textarea = grower.querySelector("textarea");
-	//  //textarea.addEventListener("input", () => {
-	//    grower.dataset.replicatedValue = textarea.value;
-	//  //});
-	//});
-
 }
 
 fetch('/getenv', {
@@ -119,7 +108,7 @@ function submitSourceForm(form) {
 
 	//// Debug log
 	//for (let [key, value] of formData.entries()) {
-	//    console.log(`FormData entry: ${key} = ${value}`);
+	//	console.log(`FormData entry: ${key} = ${value}`);
 	//}
 
 	// Send FormData using fetch and update the output with response
@@ -150,10 +139,10 @@ document.getElementById('textForm').addEventListener('submit', function(event) {
 
 const growers = document.querySelectorAll(".grow-wrap");
 growers.forEach((grower) => {
-  const textarea = grower.querySelector("textarea");
-  textarea.addEventListener("input", () => {
-    grower.dataset.replicatedValue = textarea.value;
-  });
+	const textarea = grower.querySelector("textarea");
+	textarea.addEventListener("input", () => {
+		grower.dataset.replicatedValue = textarea.value;
+	});
 });
 
 const HELLO_SRC =
@@ -203,29 +192,69 @@ println("y_slice = ", y_slice);
 
 const QUINE_SRC =
 `fn quine(s: str) {
-	let lparen    = char(40);
-	let rparen    = char(41);
-	let quote     = char(34);
-	let semicolon = char(59);
-	println(
-		s + lparen + quote +
-		s + quote + rparen + semicolon
-	);
-	return;
+    let lparen    = char(40);
+    let rparen    = char(41);
+    let quote     = char(34);
+    let semicolon = char(59);
+    println(
+        s + lparen + quote +
+        s + quote + rparen + semicolon
+    );
+    return;
 }
 quine("
 fn quine(s: str) {
-	let lparen    = char(40);
-	let rparen    = char(41);
-	let quote     = char(34);
-	let semicolon = char(59);
-	println(
-		s + lparen + quote +
-		s + quote + rparen + semicolon
-	);
-	return;
+    let lparen    = char(40);
+    let rparen    = char(41);
+    let quote     = char(34);
+    let semicolon = char(59);
+    println(
+        s + lparen + quote +
+        s + quote + rparen + semicolon
+    );
+    return;
 }
 quine");
+`;
+
+const STRUCT_SRC =
+`// declare
+struct Point {
+	x: [i32; :],
+	name: str,
+}
+// instantiate
+let pt0 = Point{x = [20, 10], name = "my-pt0"};
+let pt1 = Point{x = [40, 50], name = "my-pt1"};
+
+struct Rect {
+	bottom_left: Point,
+	upper_right: Point,
+	name: str
+}
+let rect0 = Rect{bottom_left = pt0, upper_right = pt1, name = "my-rect"};
+
+fn area(rect: Rect): i32 {
+	let width =
+		rect.upper_right.x[0] -
+		rect.bottom_left.x[0];
+	let height =
+		rect.upper_right.x[1] -
+		rect.bottom_left.x[1];
+
+	// Taking the absolute value is left as an exercise for the reader
+	return width * height;
+}
+println("area = ", area(rect0));
+
+fn get_unit_rect(): Rect {
+	return Rect {
+		bottom_left = Point{x = [0, 0], name = "bl"},
+		upper_right = Point{x = [1, 1], name = "ur"},
+		name = "unit-rect",
+	};
+}
+println("unit area = ", area(get_unit_rect()));
 `;
 
 // Initialize source text contents
