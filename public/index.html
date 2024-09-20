@@ -25,7 +25,7 @@
 
 		<form id="textForm">
 			<label for="sourceText">Source:</label>
-			<pre><div class="grow-wrap">
+			<pre><div class="grow-wrap" id="sourceTextWrap">
 			<textarea
 				id="sourceText"
 				name="text"
@@ -63,27 +63,30 @@ function submitSampleSelect() {
 	// elem.value
 	elem = document.getElementById('sourceText');
 	switch (sample.value) {
-		case "hello":
-			elem.value = HELLO_SRC;
-			elem.rows = 4;
-			break;
+	case "hello":
+		elem.value = HELLO_SRC;
+		break;
+	case "for":
+		elem.value = FOR_SRC;
+		break;
+	case "arrays":
+		elem.value = ARRAYS_SRC;
+		break;
+	default:
+		break;
+	}
+	//grower.dataset.replicatedValue = textarea.value;
+	//elem.dataset.replicatedValue = elem.value;
+	document.getElementById("sourceTextWrap").dataset.replicatedValue = elem.value;
 
-		case "for":
-			elem.value = FOR_SRC;
-			elem.rows = countLines(elem.value);
-			break;
+	//const growers = document.querySelectorAll(".grow-wrap");
+	//growers.forEach((grower) => {
+	//  const textarea = grower.querySelector("textarea");
+	//  //textarea.addEventListener("input", () => {
+	//    grower.dataset.replicatedValue = textarea.value;
+	//  //});
+	//});
 
-		case "arrays":
-			elem.value = ARRAYS_SRC;
-			elem.rows = countLines(elem.value);
-			break;
-
-		default:
-			break;
-		}
-
-		//console.log("lines = ", countLines(elem.value));
-		elem.rows = Math.max(elem.rows, countLines(elem.value) + 1);
 }
 
 fetch('/getenv', {
