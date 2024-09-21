@@ -9,6 +9,8 @@ git pull
 # reset the env
 export NODE_ENV="production"
 
+./build.sh
+
 #pkill node || true
 ##nohup node server.js &
 #setsid nohup node server.js &

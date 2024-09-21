@@ -1,4 +1,6 @@
 
+// Based on https://github.com/RPGillespie6/codemirror-quickstart
+
 import { EditorState } from '@codemirror/state';
 
 import { highlightSelectionMatches } from '@codemirror/search';
@@ -11,8 +13,8 @@ import { lineNumbers, highlightActiveLineGutter, highlightSpecialChars, drawSele
 import { oneDark } from "@codemirror/theme-one-dark";
 
 // Language
-//import { javascript } from "@codemirror/lang-javascript";
 import { rust } from "@codemirror/lang-rust";
+//import { javascript } from "@codemirror/lang-javascript";
 
 function createEditorState(initialContents, options = {}) {
     let extensions = [
@@ -40,8 +42,8 @@ function createEditorState(initialContents, options = {}) {
             ...foldKeymap,
             ...completionKeymap,
         ]),
-        //javascript(),
         rust(),
+        //javascript(),
         syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
     ];
 
