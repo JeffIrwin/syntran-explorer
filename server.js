@@ -35,15 +35,11 @@ app.post('/getenv', upload.fields([]), (req, res) => {
 
 // Route to handle syntran source form submission
 app.post('/submit', upload.fields([]), (req, res) => {
-//app.post('/submit', (req, res) => {
 	console.log("body = ", req.body);
-	//let sy_in = req.body.text;
-	let sy_in = req.body.source;
-	//let sy_in = req.text;
-	//let sy_in = req.body;
+	let sy_in = req.body.text;
+	//let sy_in = req.body.source;
 
-	console.log("sy_in = ", sy_in);
-	//console.log("source = ", source);
+	//console.log("sy_in = ", sy_in);
 
 	// Get rid of Windows line endings for proper line numbers in error messages
 	sy_in = sy_in.replace(/\r/g, "");

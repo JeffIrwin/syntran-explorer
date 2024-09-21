@@ -101,32 +101,23 @@ function submitSourceForm(form) {
 	// Set this to indicate possibly long-running jobs
 	document.getElementById('responseText').innerText = "Running ...";
 
-	// Create a FormData object from the form
-	let formData = new FormData(form);
-
-	// Debug log
-	for (let [key, value] of formData.entries()) {
-		console.log(`FormData entry: ${key} = ${value}`);
-	}
-
 	source = view.state.doc.toString();
 	//console.log("Source text:\n", source);
-	//formData.body.text = source;
-	//formData.text = source;
-	//formData.source = source;
 
-	// TODO: might be possible to .set("text", ...) instead of appending a new
-	// field.  Also modify server to go back to .text instead of .source
-	formData.append("source", source);
+	// Create a FormData object from the form
+	let formData = new FormData(form);
+	formData.set("text", source);
+
+	//// Debug log
+	//for (let [key, value] of formData.entries()) {
+	//	console.log(`FormData entry: ${key} = ${value}`);
+	//}
 
 	// Send FormData using fetch and update the output with response
 	// data
 	fetch('/submit', {
 		method: 'POST',
-		//source: source,
 		body: formData,
-		//body: JSON.stringify({ source }),
-		//body: view.state.doc.toString(),
 	})
 	.then(response => response.text())
 	.then(data => {
