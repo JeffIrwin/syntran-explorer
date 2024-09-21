@@ -152,3 +152,16 @@ label {
   display: block;
 }*/
 
+/* Set editor dimensions */
+#editor {
+    /*height: 500px;*/
+    width: 100%;
+}
+
+/* Stretch editor to fit inside its containing div */
+.cm-editor {
+	height: 100%;
+	width: 100%;
+	font-size: 16px;
+}
+

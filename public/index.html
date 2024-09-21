@@ -10,6 +10,10 @@
 </head>
 
 <body>
+
+	<!-- From https://github.com/RPGillespie6/codemirror-quickstart -->
+	<script src="3p/cm6.bundle.min.js"></script>
+
 	<div class="container">
 	<!-- <div style="display: table; margin: auto;"> -->
 	<div style="max-width: fit-content; margin: auto;">
@@ -27,17 +31,7 @@
 
 		<form id="textForm">
 			<label for="sourceText">Source:</label>
-			<pre><div class="grow-wrap" id="sourceTextWrap">
-			<textarea
-				id="sourceText"
-				name="text"
-				rows="4"
-				cols="20"
-				autofocus=true
-				spellcheck=false
-				required>
-			</textarea>
-			</div></pre>
+			<div id="editor"></div>
 			<button type="submit">Run (Ctrl+Enter)</button>
 		</form>
 
@@ -56,30 +50,28 @@ function submitSampleSelect() {
 	//console.log("id = ", sample.selectedIndex);
 	//console.log("vl = ", sample.value);
 
-	// Setting elem.textContent works *until* the user edits the
-	// textarea.  After that it can only be changed in javascript via
-	// elem.value
 	elem = document.getElementById('sourceText');
 	switch (sample.value) {
 	case "hello":
-		elem.value = HELLO_SRC;
+		src = HELLO_SRC;
 		break;
 	case "for":
-		elem.value = FOR_SRC;
+		src = FOR_SRC;
 		break;
 	case "arrays":
-		elem.value = ARRAYS_SRC;
+		src = ARRAYS_SRC;
 		break;
 	case "quine":
-		elem.value = QUINE_SRC;
+		src = QUINE_SRC;
 		break;
 	case "struct":
-		elem.value = STRUCT_SRC;
+		src = STRUCT_SRC;
 		break;
 	default:
 		break;
 	}
-	document.getElementById("sourceTextWrap").dataset.replicatedValue = elem.value;
+	const state = cm6.createEditorState(src, CM_OPTIONS);
+	view.setState(state);
 }
 
 fetch('/getenv', {
@@ -104,18 +96,31 @@ function submitSourceForm(form) {
 	document.getElementById('responseText').innerText = "Running ...";
 
 	// Create a FormData object from the form
-	const formData = new FormData(form);
+	let formData = new FormData(form);
 
-	//// Debug log
-	//for (let [key, value] of formData.entries()) {
-	//	console.log(`FormData entry: ${key} = ${value}`);
-	//}
+	// Debug log
+	for (let [key, value] of formData.entries()) {
+		console.log(`FormData entry: ${key} = ${value}`);
+	}
+
+	source = view.state.doc.toString();
+	//console.log("Source text:\n", source);
+	//formData.body.text = source;
+	//formData.text = source;
+	//formData.source = source;
+
+	// TODO: might be possible to .set("text", ...) instead of appending a new
+	// field.  Also modify server to go back to .text instead of .source
+	formData.append("source", source);
 
 	// Send FormData using fetch and update the output with response
 	// data
 	fetch('/submit', {
 		method: 'POST',
-		body: formData
+		//source: source,
+		body: formData,
+		//body: JSON.stringify({ source }),
+		//body: view.state.doc.toString(),
 	})
 	.then(response => response.text())
 	.then(data => {
@@ -135,14 +140,6 @@ document.addEventListener('keydown', function(event) {
 
 document.getElementById('textForm').addEventListener('submit', function(event) {
 	submitSourceForm(this);
-});
-
-const growers = document.querySelectorAll(".grow-wrap");
-growers.forEach((grower) => {
-	const textarea = grower.querySelector("textarea");
-	textarea.addEventListener("input", () => {
-		grower.dataset.replicatedValue = textarea.value;
-	});
 });
 
 const HELLO_SRC =
@@ -256,6 +253,19 @@ fn get_unit_rect(): Rect {
 }
 println("unit area = ", area(get_unit_rect()));
 `;
+
+// Initialize codemirror editor
+const view = cm6.createEditorView(undefined, document.getElementById("editor"));
+const CM_OPTIONS = {
+	oneDark: true,
+	//language: "aoeuhtnshtns",
+	language: "rust",  // does nothing? this doesn't seem like the right way
+};
+//const initialState = cm6.createEditorState(
+//	HELLO_SRC,
+//	CM_OPTIONS
+//);
+//view.setState(initialState);
 
 // Initialize source text contents
 submitSampleSelect();
