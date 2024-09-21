@@ -1,21 +1,13 @@
 #!/usr/bin/env bash
 
+# Update everything on the prod server and (re)start it
+
 set -exu
 #set -ex
 
 git pull
 
-# If you ever start pm2 without prod env, you have to `pm2 kill` and restart to
-# reset the env
-export NODE_ENV="production"
-
-./build.sh
-
-#pkill node || true
-##nohup node server.js &
-#setsid nohup node server.js &
-
-# There's `pm2 restart` but it fails if you haven't already started :(
-pm2 stop server.js || true
-pm2 start server.js
+# This can have a cold-start problem, so the rest of the important stuff is in a
+# wrapped script after the git pull
+./wrapped-deploy.sh
 
