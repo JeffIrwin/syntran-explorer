@@ -247,14 +247,14 @@ fn area(rect: Rect): i32 {
 }
 println("area = ", area(rect0));
 
-fn get_unit_rect(): Rect {
+fn unit_rect(): Rect {
 	return Rect {
 		bottom_left = Point{x = [0, 0], name = "bl"},
 		upper_right = Point{x = [1, 1], name = "ur"},
 		name = "unit-rect",
 	};
 }
-println("unit area = ", area(get_unit_rect()));
+println("unit area = ", area(unit_rect()));
 `;
 
 // Initialize codemirror editor
