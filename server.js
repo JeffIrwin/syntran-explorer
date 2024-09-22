@@ -35,11 +35,10 @@ app.post('/getenv', upload.fields([]), (req, res) => {
 
 // Route to handle syntran source form submission
 app.post('/submit', upload.fields([]), (req, res) => {
-	console.log("body = ", req.body);
+	//console.log("body = ", req.body);
 	let sy_in = req.body.text;
-	//let sy_in = req.body.source;
 
-	//console.log("sy_in = ", sy_in);
+	console.log("syntran input = \n```\n", sy_in, "\n```");
 
 	// Get rid of Windows line endings for proper line numbers in error messages
 	sy_in = sy_in.replace(/\r/g, "");
@@ -62,6 +61,11 @@ app.post('/submit', upload.fields([]), (req, res) => {
 	}
 	//let sy_cmd = spawnSync("syntran", ["-q", "-c", sy_in]);
 
+	// I don't think this try/catch does anything, but it feels safer to leave
+	// it in.  Exceeding the timeout does not throw an exception.  Actually I
+	// can't find any way to find out if the timeout is exceeded (other than
+	// maybe manually profiling times and checking if it's close to the timeout,
+	// and that doesn't seem reliable)
 	let sy_out = "";
 	try {
 

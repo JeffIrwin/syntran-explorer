@@ -78,6 +78,8 @@ function submitSampleSelect() {
 	}
 	const state = cm6.createEditorState(src, CM_OPTIONS);
 	view.setState(state);
+	//view.state.doc.setCursor(0);
+	view.dispatch({selection: {anchor: view.state.doc.toString().length}});
 }
 
 fetch('/getenv', {
@@ -260,11 +262,33 @@ view.focus();
 
 // TODO: set the cursor at the end of existing content
 //view.setCursor(0, 0);
+//view.setCursor({line: 1, ch: 5});
 //view.state.setCursor(0);
+//view.state.doc.setCursor(0);
 //cmInstance.setCursor(cmInstance.lineCount(), 0);
 
 // Initialize source text contents
 submitSampleSelect();
+
+//view.dispatch({
+//  changes: {from: 0, insert: "#!/usr/bin/env node\n"}
+//})
+//view.dispatch({
+//	//selection: {cursor: 0}
+//	//selection: {cursor: {pos: 0}}
+//	//selection: EditorSelection({cursor: 0})
+//	selection: {cursor: 0}
+//})
+
+//view.dispatch({
+//  selection: EditorSelection.create([
+//    EditorSelection.range(4, 5),
+//    EditorSelection.range(6, 7),
+//    EditorSelection.cursor(8)
+//  ], 1)
+//})
+
+//view.dispatch({selection: {anchor: 5}});
 
 </script>
 </body>

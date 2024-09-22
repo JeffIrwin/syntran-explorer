@@ -4,6 +4,7 @@
 import {
 	EditorState,
 	Prec,
+	EditorSelection,
 } from '@codemirror/state';
 
 import { highlightSelectionMatches } from '@codemirror/search';
@@ -11,7 +12,7 @@ import {
 	indentWithTab,
 	history,
 	defaultKeymap,
-	historyKeymap
+	historyKeymap,
 } from '@codemirror/commands';
 
 import {
@@ -21,14 +22,14 @@ import {
 	bracketMatching,
 	foldKeymap,
 	syntaxHighlighting,
-	defaultHighlightStyle
+	defaultHighlightStyle,
 } from '@codemirror/language';
 
 import {
 	closeBrackets,
 	autocompletion,
 	closeBracketsKeymap,
-	completionKeymap
+	completionKeymap,
 } from '@codemirror/autocomplete';
 
 import {
@@ -41,7 +42,7 @@ import {
 	crosshairCursor,
 	highlightActiveLine,
 	keymap,
-	EditorView
+	EditorView,
 } from '@codemirror/view';
 
 // Theme
