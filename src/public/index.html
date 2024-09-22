@@ -214,7 +214,7 @@ fn mul_mat(a: [f32; :,:], b: [f32; :,:]): [f32; :,:] {
     for         k in [0: size(b,1)]
         for     j in [0: size(a,1)]
             for i in [0: size(a,0)]
-                c[i,k] = c[i,k] + a[i,j] * b[j,k];
+                c[i,k] += a[i,j] * b[j,k];
     return c;
 }
 fn main(): i32 {
