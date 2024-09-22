@@ -1,20 +1,26 @@
 
 body {
 	font-family: Arial, sans-serif;
-	background-color: #121212;
+	background-color: #1e1e1e;
 	color: #e0e0e0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	/*height: 100vh;*/
 	margin: 0;
+	/*padding: 100px;*/
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .container {
-	background: #1e1e1e; /* Slightly lighter background for the form container */
+	background: #121212; /* Slightly lighter background for the form container */
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	padding: 20px;
+	/*padding: 20px;*/
+	/*padding-top: 100px;*/
+	/*padding-bottom: 20px;*/
+	/*border: 100px;*/
 	margin: auto; /* scroll bar breaks without this for big resizing */
 
 	width: 80%;
@@ -22,6 +28,8 @@ body {
 
 	/* width: 100%; */
 	/*max-width: 600px;*/
+
+	/*height: 80%;*/
 }
 
 .wrapper {
@@ -80,13 +88,22 @@ button:hover {
 pre {
 	/* Enabable wrapping for the <pre> output block */
 
+	/* TODO: this should probably be a class */
+
 	/* pre-line removes white space from the beginning of lines, which i don't
 	 * want because it messes up error messages
 	 */
 	white-space: pre-wrap;
 	/*white-space: pre-line;*/
 
+	padding: 10px;
+	/*border: 1px solid #33aa33;*/
+	border: 1px solid #6200ea;
+	/*border-radius: 4px;*/
+	border-radius: 8px;
+
 	font-size: 16px;
+	background-color: #1a1a1a;
 }
 
 /* Style for the select element */
@@ -124,11 +141,16 @@ select option {
     width: 100%;
 }
 
-/* Stretch editor to fit inside its containing div */
+/* Stretch codemirror (cm) editor to fit inside its containing div */
 .cm-editor {
 	height: 100%;
 	width: 100%;
 	font-size: 16px;
+	border-radius: 8px;
+	background-color: #1a1a1a;
+}
+.cm-gutters {
+	border-radius: 8px;
 }
 
 /* link text */
