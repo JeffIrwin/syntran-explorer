@@ -209,7 +209,7 @@ const FN_SRC =
     return a1 + a2;
 }
 fn mul_mat(a: [f32; :,:], b: [f32; :,:]): [f32; :,:] {
-    // Multiply matrices 'a' and 'b'
+    // Multiply matrices \`a\` and \`b\`
     let c = [0.0; size(a,0), size(b,1)];
     for         k in [0: size(b,1)]
         for     j in [0: size(a,1)]
@@ -218,6 +218,8 @@ fn mul_mat(a: [f32; :,:], b: [f32; :,:]): [f32; :,:] {
     return c;
 }
 fn main(): i32 {
+    // \`main\` fns are optional, these statements
+    // could be moved to the global scope
     let a = 3;
     let b = 4;
     println("add = ", add(a + 1, b + 2));
@@ -251,14 +253,14 @@ let q = false;
 let foo = 0;
 let bar = 0;
 if q and p {
-	foo = 1;
-	bar = 2;
+    foo = 1;
+    bar = 2;
 } else if p or not q {
-	foo = 3;
-	bar = 4;
+    foo = 3;
+    bar = 4;
 } else {
-	foo = 5;
-	bar = 6;
+    foo = 5;
+    bar = 6;
 }
 
 println("sum = ", foo + bar);
@@ -294,39 +296,39 @@ quine");
 const STRUCT_SRC =
 `// declare
 struct Point {
-	x: [i32; :],
-	name: str,
+    x: [i32; :],
+    name: str,
 }
 // instantiate
 let pt0 = Point{x = [20, 10], name = "my-pt0"};
 let pt1 = Point{x = [40, 50], name = "my-pt1"};
 
 struct Rect {
-	bottom_left: Point,
-	upper_right: Point,
-	name: str
+    bottom_left: Point,
+    upper_right: Point,
+    name: str
 }
 let rect0 = Rect{bottom_left = pt0, upper_right = pt1, name = "my-rect"};
 
 fn area(rect: Rect): i32 {
-	let width =
-		rect.upper_right.x[0] -
-		rect.bottom_left.x[0];
-	let height =
-		rect.upper_right.x[1] -
-		rect.bottom_left.x[1];
+    let width =
+        rect.upper_right.x[0] -
+        rect.bottom_left.x[0];
+    let height =
+        rect.upper_right.x[1] -
+        rect.bottom_left.x[1];
 
-	// Taking the absolute value is left as an exercise for the reader
-	return width * height;
+    // Taking the absolute value is left as an exercise for the reader
+    return width * height;
 }
 println("area = ", area(rect0));
 
 fn unit_rect(): Rect {
-	return Rect {
-		bottom_left = Point{x = [0, 0], name = "bl"},
-		upper_right = Point{x = [1, 1], name = "ur"},
-		name = "unit-rect",
-	};
+    return Rect {
+        bottom_left = Point{x = [0, 0], name = "bl"},
+        upper_right = Point{x = [1, 1], name = "ur"},
+        name = "unit-rect",
+    };
 }
 println("unit area = ", area(unit_rect()));
 `;
