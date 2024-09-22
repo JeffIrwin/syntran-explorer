@@ -19,6 +19,7 @@ import { rust } from "@codemirror/lang-rust";
 function createEditorState(initialContents, options = {}) {
     let extensions = [
         lineNumbers(),
+        EditorView.lineWrapping,
         highlightActiveLineGutter(),
         highlightSpecialChars(),
         history(),
@@ -57,7 +58,11 @@ function createEditorState(initialContents, options = {}) {
 }
 
 function createEditorView(state, parent) {
-    return new EditorView({ state, parent });
+    return new EditorView({
+		state,
+		//lineWrapping: true,
+		parent
+	});
 }
 
 export { createEditorState, createEditorView };
