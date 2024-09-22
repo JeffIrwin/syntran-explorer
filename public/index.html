@@ -256,6 +256,12 @@ const view = cm6.createEditorView(undefined, document.getElementById("editor"));
 const CM_OPTIONS = {
 	oneDark: true,
 };
+view.focus();
+
+// TODO: set the cursor at the end of existing content
+//view.setCursor(0, 0);
+//view.state.setCursor(0);
+//cmInstance.setCursor(cmInstance.lineCount(), 0);
 
 // Initialize source text contents
 submitSampleSelect();
