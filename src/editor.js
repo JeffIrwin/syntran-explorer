@@ -1,5 +1,8 @@
 
 // Based on https://github.com/RPGillespie6/codemirror-quickstart
+//
+// This isn't exactly public, but it's not backend.  Rather, it gets rolled-up
+// and minified by build.sh and shipped publicly from ./src/public/3p/
 
 import {
 	EditorState,

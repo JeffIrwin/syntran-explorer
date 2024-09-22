@@ -1,7 +1,7 @@
 
 /node_modules/
-/public/3p/
 /scratch/
+/src/public/3p/
 
 /nohup.out
 /package-lock.json

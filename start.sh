@@ -9,5 +9,6 @@ if [[ "$1" == "--stg" ]] ; then
 	export NODE_ENV="staging"
 fi
 
+pushd src
 node server.js
 

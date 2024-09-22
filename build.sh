@@ -4,9 +4,9 @@ set -exu
 
 npm install
 
-dir="public/3p"
+dir="src/public/3p"
 mkdir -p "$dir"
-npx rollup editor.js -f iife -o "$dir"/cm6.bundle.js -p @rollup/plugin-node-resolve --output.name cm6
+npx rollup src/editor.js -f iife -o "$dir"/cm6.bundle.js -p @rollup/plugin-node-resolve --output.name cm6
 
 # uglifyjs works
 #

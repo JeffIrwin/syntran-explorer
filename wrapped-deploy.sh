@@ -9,6 +9,8 @@ export NODE_ENV="production"
 
 ./build.sh
 
+pushd src
+
 #pkill node || true
 ##nohup node server.js &
 #setsid nohup node server.js &
