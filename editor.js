@@ -4,7 +4,6 @@
 import {
 	EditorState,
 	Prec,
-	EditorSelection,
 } from '@codemirror/state';
 
 import { highlightSelectionMatches } from '@codemirror/search';
@@ -25,10 +24,12 @@ import {
 	defaultHighlightStyle,
 } from '@codemirror/language';
 
+// TODO: autocomplete in codemirror only works for javascript, not rust.  Maybe
+// remove it entirely?
 import {
-	closeBrackets,
+	//closeBrackets,
 	autocompletion,
-	closeBracketsKeymap,
+	//closeBracketsKeymap,
 	completionKeymap,
 } from '@codemirror/autocomplete';
 
@@ -64,7 +65,7 @@ function createEditorState(initialContents, options = {}) {
 		EditorState.allowMultipleSelections.of(true),
 		indentOnInput(),
 		bracketMatching(),
-		closeBrackets(),
+		//closeBrackets(),
 		autocompletion(),
 		rectangularSelection(),
 		crosshairCursor(),
@@ -72,7 +73,7 @@ function createEditorState(initialContents, options = {}) {
 		highlightSelectionMatches(),
 		keymap.of([
 			indentWithTab,
-			...closeBracketsKeymap,
+			//...closeBracketsKeymap,
 			...defaultKeymap,
 			...historyKeymap,
 			...foldKeymap,
