@@ -2,13 +2,17 @@
 import { AnsiUp } from 'ansi_up'
 import { spawnSync } from "child_process";
 import express from "express";
+//var https = require('https');
+//import https from "https";
 import multer from "multer";
 import fs from "node:fs";
 import tmp from "tmp";
 
 const app = express();
 
-let port = 3000;
+// port 80 requires sudo but it's the default port, meaning you can just visit the ip address and omit the port
+let port = 80;
+//let port = 3000;
 if (process.env.NODE_ENV === "production") {
 	console.log("prod");
 } else {
