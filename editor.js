@@ -1,7 +1,10 @@
 
 // Based on https://github.com/RPGillespie6/codemirror-quickstart
 
-import { EditorState } from '@codemirror/state';
+import {
+	EditorState,
+	Prec,
+} from '@codemirror/state';
 
 import { highlightSelectionMatches } from '@codemirror/search';
 import {
@@ -74,6 +77,11 @@ function createEditorState(initialContents, options = {}) {
 			...foldKeymap,
 			...completionKeymap,
 		]),
+		Prec.highest(keymap.of([{
+			key: "Ctrl-Enter",
+			//run({state}) { return true; },
+			run() { return true; },
+		}])),
 		rust(),
 		syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
 	];
