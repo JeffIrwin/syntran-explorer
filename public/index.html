@@ -12,6 +12,7 @@
 <body>
 
 	<script src="3p/cm6.bundle.min.js"></script>
+	<!-- <script src="3p/cm6.bundle.js"></script> -->
 
 	<div class="container">
 	<!-- <div style="display: table; margin: auto;"> -->
@@ -31,6 +32,7 @@
 			<option value="hello">hello world</option>
 			<option value="for">for loops</option>
 			<option value="arrays">arrays</option>
+			<option value="if_bool">if/else and booleans</option>
 			<option value="struct">structs</option>
 			<option value="quine">quine</option>
 		</select>
@@ -61,18 +63,27 @@ function submitSampleSelect() {
 	case "hello":
 		src = HELLO_SRC;
 		break;
+
 	case "for":
 		src = FOR_SRC;
 		break;
+
 	case "arrays":
 		src = ARRAYS_SRC;
 		break;
+
+	case "if_bool":
+		src = IF_BOOL_SRC;
+		break;
+
 	case "quine":
 		src = QUINE_SRC;
 		break;
+
 	case "struct":
 		src = STRUCT_SRC;
 		break;
+
 	default:
 		break;
 	}
@@ -186,6 +197,26 @@ println("mat_slice = ", mat_slice);
 matrix[1,:] += 100;
 y_slice = matrix[1,:];
 println("y_slice = ", y_slice);
+`;
+
+const IF_BOOL_SRC =
+`let p = true;
+let q = false;
+
+let foo = 0;
+let bar = 0;
+if q and p {
+	foo = 1;
+	bar = 2;
+} else if p or not q {
+	foo = 3;
+	bar = 4;
+} else {
+	foo = 5;
+	bar = 6;
+}
+
+println("sum = ", foo + bar);
 `;
 
 const QUINE_SRC =
