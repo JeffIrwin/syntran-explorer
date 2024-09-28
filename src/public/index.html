@@ -159,8 +159,6 @@ function submitSourceForm(form) {
 }
 
 // Listen on whole page for hotkey, regardless of where focus is
-//
-// TODO: can Ctrl+Z be sent to cm editor?
 document.addEventListener('keydown', function(event) {
 
 	if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
