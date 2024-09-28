@@ -4,8 +4,6 @@
 // This isn't exactly public, but it's not backend.  Rather, it gets rolled-up
 // and minified by build.sh and shipped publicly from ./src/public/3p/
 
-//import {undo} from "@codemirror/history";
-
 import {
 	EditorState,
 	Prec,
@@ -18,6 +16,7 @@ import {
 	defaultKeymap,
 	historyKeymap,
 	undo,
+	redo,
 } from '@codemirror/commands';
 
 import {
@@ -110,15 +109,10 @@ function createEditorView(state, parent) {
 	});
 }
 
-function undoEditorState(view) {
-	//history.undo(view);
-	undo(view);
-}
-
 export {
 	createEditorState,
 	createEditorView,
-	undoEditorState,
 	undo,
+	redo,
 };
 

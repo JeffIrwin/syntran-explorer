@@ -165,15 +165,9 @@ document.addEventListener('keydown', function(event) {
 	if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
 		submitSourceForm(document.getElementById("textForm"));
 	} else if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
-		//cm6.undo();
-		//view.state.undo();
-		//undo(view);
 		cm6.undo(view);
-		//cm6.undoEditorState(view);
-
-		//state.history.undo(view);
-		//view.state.doc.length,
-		//view.state.doc.history.undo();
+	} else if (event.key === "y" && (event.metaKey || event.ctrlKey)) {
+		cm6.redo(view);
 	}
 });
 
