@@ -162,9 +162,14 @@ function submitSourceForm(form) {
 //
 // TODO: can Ctrl+Z be sent to cm editor?
 document.addEventListener('keydown', function(event) {
+
 	if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
 		submitSourceForm(document.getElementById("textForm"));
+
 	} else if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
+		// Ctrl+Z and Ctrl+Y work by default when the editor is focused, but
+		// when the focus is elsewhere this listener will manually forward the
+		// event to the appropriate codemirror function
 		cm6.undo(view);
 	} else if (event.key === "y" && (event.metaKey || event.ctrlKey)) {
 		cm6.redo(view);
