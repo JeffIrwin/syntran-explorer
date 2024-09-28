@@ -6,9 +6,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/*height: 100vh;*/
 	margin: 0;
-	/*padding: 100px;*/
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
@@ -17,19 +15,8 @@ body {
 	background: #121212; /* Slightly lighter background for the form container */
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	/*padding: 20px;*/
-	/*padding-top: 100px;*/
-	/*padding-bottom: 20px;*/
-	/*border: 100px;*/
 	margin: auto; /* scroll bar breaks without this for big resizing */
-
 	width: 80%;
-	/*width: 95%;*/
-
-	/* width: 100%; */
-	/*max-width: 600px;*/
-
-	/*height: 80%;*/
 }
 
 .wrapper {
@@ -43,10 +30,14 @@ body {
 	 */
 
 	.container {
-		width: 90%;
+		width: 100%;
 	}
 	.wrapper {
 		width: 97%;
+	}
+	body {
+		/* sides, top, and bottom */
+		padding: 5px;
 	}
 }
 
@@ -113,7 +104,6 @@ select {
 	border: 1px solid #555555; /* Darker border color */
 	border-radius: 4px; /* Rounded corners */
 	padding: 10px;
-	/*width: 200px;*/
 	font-size: 16px;
 	position: relative;
 }

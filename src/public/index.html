@@ -92,6 +92,11 @@ function submitSampleSelect() {
 	default:
 		break;
 	}
+
+	// TODO: try to "change" the state instead of setting the state.  This might
+	// allow undoing past sample selection dropdown changes.  Maybe also add a
+	// "leave this page" popup to guard against losing data through page
+	// refreshing (but only if the state has changed)
 	const state = cm6.createEditorState(src, CM_OPTIONS);
 	view.setState(state);
 
