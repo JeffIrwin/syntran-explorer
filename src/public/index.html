@@ -59,7 +59,6 @@ function submitSampleSelect() {
 	//console.log("id = ", sample.selectedIndex);
 	//console.log("vl = ", sample.value);
 
-	elem = document.getElementById('sourceText');
 	switch (sample.value) {
 	case "hello":
 		src = HELLO_SRC;
@@ -97,6 +96,8 @@ function submitSampleSelect() {
 	// changes in sample dropdown.  Maybe they should be treated as separate
 	// documents but this guarantees user will never lose changes (except on
 	// page refresh)
+	//
+	// c.f.  https://discuss.codemirror.net/t/document-changes-in-cm6/3284/10
 	view.dispatch({
 		changes: {
 			from: 0,
@@ -161,8 +162,18 @@ function submitSourceForm(form) {
 //
 // TODO: can Ctrl+Z be sent to cm editor?
 document.addEventListener('keydown', function(event) {
-	if(event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+	if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
 		submitSourceForm(document.getElementById("textForm"));
+	} else if (event.key === "z" && (event.metaKey || event.ctrlKey)) {
+		//cm6.undo();
+		//view.state.undo();
+		//undo(view);
+		cm6.undo(view);
+		//cm6.undoEditorState(view);
+
+		//state.history.undo(view);
+		//view.state.doc.length,
+		//view.state.doc.history.undo();
 	}
 });
 
