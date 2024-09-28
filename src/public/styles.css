@@ -126,8 +126,8 @@ select option {
 
 /* Set editor dimensions */
 #editor {
-    /*height: 500px;*/
-    width: 100%;
+	/*height: 500px;*/
+	width: 100%;
 }
 
 /* Stretch codemirror (cm) editor to fit inside its containing div */
@@ -144,11 +144,9 @@ select option {
 
 /* link text */
 a {
-	/*color: #ff69b4;  /* hotpink */
-	color: #0092ba;
+	color: #20b2da;
 }
 a:visited {
-	/*color: #cd3989;  /* darker hotpink */
-	color: #006783;
+	color: #0087a3;
 }
 
