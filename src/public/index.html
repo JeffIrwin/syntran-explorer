@@ -93,16 +93,20 @@ function submitSampleSelect() {
 		break;
 	}
 
-	// TODO: try to "change" the state instead of setting the state.  This might
-	// allow undoing past sample selection dropdown changes.  Maybe also add a
-	// "leave this page" popup to guard against losing data through page
-	// refreshing (but only if the state has changed)
-	const state = cm6.createEditorState(src, CM_OPTIONS);
-	view.setState(state);
+	// Change state instead of setting state.  This allows undo, even back past
+	// changes in sample dropdown.  Maybe they should be treated as separate
+	// documents but this guarantees user will never lose changes (except on
+	// page refresh)
+	view.dispatch({
+		changes: {
+			from: 0,
+			to: view.state.doc.length,
+			insert: src,
+	}});
 
 	// Move the cursor to the end.  Most noticeable on page load, but also
 	// apparent if you tab into the editor after changing sample selection
-	view.dispatch({selection: {anchor: view.state.doc.toString().length}});
+	view.dispatch({selection: {anchor: view.state.doc.length}});
 }
 
 fetch('/getenv', {
@@ -154,6 +158,8 @@ function submitSourceForm(form) {
 }
 
 // Listen on whole page for hotkey, regardless of where focus is
+//
+// TODO: can Ctrl+Z be sent to cm editor?
 document.addEventListener('keydown', function(event) {
 	if(event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
 		submitSourceForm(document.getElementById("textForm"));
@@ -341,6 +347,8 @@ const view = cm6.createEditorView(undefined, document.getElementById("editor"));
 const CM_OPTIONS = {
 	oneDark: true,
 };
+const state = cm6.createEditorState(HELLO_SRC, CM_OPTIONS);
+view.setState(state);
 
 // Focus only on page load. When changing the sample selection, focus stays in
 // the dropdown
