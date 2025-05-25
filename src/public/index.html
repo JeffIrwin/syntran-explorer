@@ -35,6 +35,7 @@
 			<option value="fn">functions</option>
 			<option value="if_bool">if/else and booleans</option>
 			<option value="struct">structs</option>
+			<option value="recurse">recursive functions</option>
 			<option value="quine">quine</option>
 		</select>
 
@@ -86,6 +87,10 @@ function submitSampleSelect() {
 
 	case "struct":
 		src = STRUCT_SRC;
+		break;
+
+	case "recurse":
+		src = RECURSE_SRC;
 		break;
 
 	default:
@@ -348,6 +353,17 @@ fn unit_rect(): Rect {
     };
 }
 println("unit area = ", area(unit_rect()));
+`;
+
+const RECURSE_SRC =
+`
+fn fibonacci(i: i32): i32 {
+	if (i <= 1) return 1;
+	return fibonacci(i-1) + fibonacci(i-2);
+}
+
+for i in [0: 10]
+	println(fibonacci(i));
 `;
 
 // Initialize codemirror editor
