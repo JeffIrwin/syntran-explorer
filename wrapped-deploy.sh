@@ -15,6 +15,6 @@ pushd src
 #
 # If you ever start pm2 without prod env, you have to `pm2 kill` and restart to
 # reset the env
-sudo NODE_ENV="production" pm2 stop server.js || true
-sudo NODE_ENV="production" pm2 start server.js
+NODE_ENV="production" pm2 stop server.js || true
+NODE_ENV="production" pm2 start server.js
 

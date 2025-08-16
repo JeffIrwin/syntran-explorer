@@ -11,7 +11,11 @@ import tmp from "tmp";
 const app = express();
 
 // port 80 requires sudo but it's the default port, meaning you can just visit the ip address and omit the port
-let port = 80;
+//
+// Other ports can be used with port (NAT) forwarding: log into your router
+// admin page and forward your router's public IP port 80 to the internal port
+// set below on this server
+let port = 50004;
 //let port = 3000;
 if (process.env.NODE_ENV === "production") {
 	console.log("prod");
